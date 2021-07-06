@@ -22,6 +22,7 @@ import { Section1Component } from './section1/section1.component';
 import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { BackModule } from './back/back.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { BackModule } from './back/back.module';
     FormsModule,
     FrontModule,
     BackModule,
-    LoginModule
+    LoginModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
