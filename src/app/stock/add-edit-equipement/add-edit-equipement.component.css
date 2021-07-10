@@ -1,0 +1,12 @@
+input.disable-right-align::-webkit-outer-spin-button,
+input.disable-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.disable-right-align {
+  -moz-appearance: textfield;
+}
+
+mat-label{
+  font-weight: 400 !important;
+}

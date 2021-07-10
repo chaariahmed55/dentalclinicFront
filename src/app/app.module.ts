@@ -23,9 +23,8 @@ import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { BackModule } from './back/back.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ListAddEditEquipementComponent } from './stock/list-add-edit-equipement/list-add-edit-equipement.component';
-import { ListBoncommandeComponent } from './stock/list-boncommande/list-boncommande.component';
-import { AddEditBoncommandeComponent } from './stock/add-edit-boncommande/add-edit-boncommande.component';
+import { StockModule } from './stock/stock.module';
+import { ApiService } from './stock/shared/api.service';
 
 @NgModule({
   declarations: [
@@ -45,14 +44,12 @@ import { AddEditBoncommandeComponent } from './stock/add-edit-boncommande/add-ed
     MenuComponent,
     FooterbackComponent,
     DashboardComponent,
-    Section1Component,
-    ListAddEditEquipementComponent,
-    ListBoncommandeComponent,
-    AddEditBoncommandeComponent,
+    Section1Component
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    StockModule,
     HttpClientModule,
     FormsModule,
     FrontModule,
@@ -60,7 +57,7 @@ import { AddEditBoncommandeComponent } from './stock/add-edit-boncommande/add-ed
     LoginModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

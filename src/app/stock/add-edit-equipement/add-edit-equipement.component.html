@@ -1,0 +1,59 @@
+<h2 mat-dialog-title> {{this.title}} </h2>
+<mat-dialog-content >
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-8">
+        <div class="row">
+          <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Code Equipement</mat-label>
+                <input type="text" [(ngModel)]="this.equipement.cequipement" matInput placeholder="Exp. SRG20" >
+              </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+              <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Libelle Equipement</mat-label>
+                <input matInput placeholder="Exp. seringue 20ml"
+                [(ngModel)]="this.equipement.libequipement">
+              </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <mat-form-field appearance="fill" class="w-100">
+              <mat-label>Quantité</mat-label>
+              <input type="number" class="disable-right-align" matInput placeholder="0"
+              [(ngModel)]="this.equipement.quantite">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-4" align="end">
+        <img class="img-thumbnail rounded" style="height: 200px;"
+          [src]=" (this.localImage ? '' : this._url)+this.equipement.imageurl" onerror='src="/assets/img/equipement.png"'
+          alt="Equipement"
+          (click)="this.doclick()">
+        <input style="display: none;" id="imageinput" type="file" placeholder="Image" accept="image/*"
+          (change)="getimage($event)">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="fill" class="w-100" >
+          <mat-label>Description</mat-label>
+          <textarea style="height: 80px;" matInput placeholder="Exp. pour..."
+          [(ngModel)]="this.equipement.description"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Annuler</button>
+  <button mat-raised-button cdkFocusInitial color="primary"
+   (click)="this.doSave()" >Enregistrer</button>
+</mat-dialog-actions>

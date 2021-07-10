@@ -1,0 +1,15 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+/* .mat-row .mat-cell {
+  cursor: pointer;
+} */
+
+.mat-row:hover {
+  background-color: rgba(183, 10, 236, 0.116);
+}
+
+mat-label{
+  font-weight: 400 !important;
+}

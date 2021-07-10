@@ -1,1 +1,89 @@
-<p>list-boncommande works!</p>
+<div class="container-fluid bg-dark p-5">
+  <div class="row pb-5">
+    <div class="col-6 text-start">
+      <div class="fs-1">Bon de Commande</div>
+    </div>
+    <div class="col-6 text-end">
+      <button (click)="this.doAdd()" routerLink="/bcd"
+        mat-raised-button color="primary">Nouveau Bon de Commande
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date Début</mat-label>
+        <input matInput [matDatepicker]="pickerdd" [(ngModel)]="this.dateDebut">
+        <mat-datepicker-toggle matSuffix [for]="pickerdd"></mat-datepicker-toggle>
+        <mat-datepicker #pickerdd></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Date Fin</mat-label>
+        <input matInput [matDatepicker]="pickerdf" [(ngModel)]="this.dateFin">
+        <mat-datepicker-toggle matSuffix [for]="pickerdf"></mat-datepicker-toggle>
+        <mat-datepicker #pickerdf></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-12 text-start">
+      <div class="mat-elevation-z8">
+        <table mat-table matSort [dataSource]="dataSource" class="w-100">
+
+          <ng-container matColumnDef="nboncommande">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> N° </th>
+            <td mat-cell *matCellDef="let element">
+              {{element.nboncommande}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="dateboncommande">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateboncommande}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="raisonsocialefournisseur">
+            <th mat-header-cell *matHeaderCellDef> Fournisseur </th>
+            <td mat-cell *matCellDef="let element"> {{element.raisonsocialefournisseur}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="montant" >
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Montant </th>
+            <td mat-cell *matCellDef="let element"> {{element.montant}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="etat">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Etat </th>
+            <td mat-cell *matCellDef="let element" > {{element.etat}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="text-end col-3"> Action </th>
+            <td mat-cell *matCellDef="let element" class="text-end col-3">
+              <button matTooltip="Imprimer" matTooltipPosition="above" mat-icon-button>
+                <mat-icon>print</mat-icon>
+              </button>
+              <button matTooltip="Afficher" matTooltipPosition="above" mat-icon-button >
+                <mat-icon>preview</mat-icon>
+              </button>
+              <button matTooltip="Modifier" matTooltipPosition="above" mat-icon-button color="accent">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button  matTooltip="Supprimer" matTooltipPosition="above" mat-icon-button color="warn">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator aria-label="Test" [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

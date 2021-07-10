@@ -1,1 +1,56 @@
-<p>list-add-edit-equipement works!</p>
+<mat-toolbar class="bg-dark p-5">
+  <span class="fs-1">Equipement</span>
+  <span class="example-spacer"></span>
+  <button (click)="this.doAdd()"
+    mat-raised-button color="primary">Nouvel Equipement
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<div class="container-fluid bg-dark p-5 pt-3">
+  <div class="row">
+    <div class="col-8 py-3">
+      <mat-chip-list  aria-label="selection">
+        <mat-chip *ngFor="let word of this.wordlist" class="p-3"
+        [selected]="this.selectedWord==word.code ? true : false"
+        color="accent"
+        (click)="this.doFilter(word)">
+          {{word.libelle}}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+    <div class="col-4">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Rechercher</mat-label>
+        <input autocomplete="off" [(ngModel)]="this.searchword" (change)="this.doSearch()" matInput placeholder="Rechercher">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider class="my-4"></mat-divider>
+  <div class="row row-cols-auto g-2">
+    <div class="col" *ngFor="let equip of this.mequipement" >
+      <mat-card class="equipement-card m-3">
+        <img mat-card-image style="height: 160px;" src="{{this._url+equip.imageurl}}" onerror='src="/assets/img/equipement.png"' alt="Equipement">
+        <mat-card-content>
+          <mat-card-title class="pb-2 twolinetext">{{equip.libequipement}}</mat-card-title>
+          <p class="twolinetext">
+            {{equip.date}} &middot; {{equip.description}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions class="text-end card-actions">
+          <button matTooltip="Modifier" matTooltipPosition="above" mat-icon-button color="accent"
+            (click)="this.doEdit(equip)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button  matTooltip="Supprimer" matTooltipPosition="above"
+            mat-icon-button color="warn"
+            (click)="this.doDelete(equip)">
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
