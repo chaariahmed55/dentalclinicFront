@@ -6,9 +6,9 @@ import { ListBoncommandeComponent } from './list-boncommande/list-boncommande.co
 import { ListAddEditEquipementComponent } from './list-add-edit-equipement/list-add-edit-equipement.component';
 
 const routes:Routes = [
-// {path:"bcd", component: AddEditBoncommandeComponent},
-// {path:"bc", component: ListBoncommandeComponent},
-// {path:"**", component: ListAddEditEquipementComponent}
+{path:"bcd", component: AddEditBoncommandeComponent},
+{path:"bc", component: ListBoncommandeComponent},
+{path:"**", component: ListAddEditEquipementComponent}
 ];
 
 @NgModule({

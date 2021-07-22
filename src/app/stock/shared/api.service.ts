@@ -9,7 +9,7 @@ import { Myresult } from '../utils/myresult';
 })
 export class ApiService {
 
-  readonly ApiURL = "http://192.168.1.179:6662/";
+  readonly ApiURL = "http://localhost:6662/";
 
   constructor(private http:HttpClient) { }
 

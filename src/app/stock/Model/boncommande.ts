@@ -1,6 +1,6 @@
 export class MBoncommande{
   nboncommande: number;
-  dateboncommande: Date;
+  dateboncommande: string;
   cfournisseur: string;
   raisonsocialefournisseur: string;
   montant: number = 0;

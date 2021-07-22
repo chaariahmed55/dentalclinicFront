@@ -11,6 +11,7 @@ import { MBoncommande } from './../Model/boncommande';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import {map, startWith} from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-boncommande',
@@ -29,19 +30,34 @@ export class AddEditBoncommandeComponent implements OnInit {
   options: MEquipement[] = [];
   filteredOptions: Observable<MEquipement[]>;
   bcbody: BCBody=new BCBody();
+  bcDate: Date = new Date();
 
   constructor(
     public dialog: MatDialog,
     private apiservice: ApiService,
     private snackbar: MatSnackBar,
-    private _adapter: DateAdapter<any>
+    private _adapter: DateAdapter<any>,
+    public datepipe: DatePipe
   ) { }
 
   ngOnInit(): void {
-    this._adapter.setLocale('fr');
+    this.mboncommande.dateboncommande = this.datepipe.transform(this.bcDate, 'dd/MM/yyyy', '+1');
+    this._adapter.setLocale('fr-FR');
     this.mboncommandedetail.unshift({ cequipement:"", nboncommande: -1,libequipement:"",ordre:-1,prix:0,quantite:0 })
     //this.dataSource = new MatTableDataSource<MBonCommandeDetail>(this.mboncommandedetail.sort((a, b)=> a < b ? 1 : a > b ? -1 : 0));
     this.loadEquipement();
+    console.log(this.mboncommande);
+  }
+
+  dateChange(){
+
+    if(!this.bcDate){
+      this.bcDate = new Date();
+    }
+
+    this.mboncommande.dateboncommande = this.datepipe.transform(this.bcDate, 'dd/MM/yyyy', '+1');
+
+    console.log(this.mboncommande);
   }
 
   ngAfterViewInit(): void {
@@ -117,12 +133,11 @@ export class AddEditBoncommandeComponent implements OnInit {
   }
 
   doSave(){
-
     this.mboncommande.montant = this.mboncommandedetail.reduce((a,{prix})=> a + prix,0);
     this.mboncommande.nboncommande = -1;
+
     this.bcbody.entete = this.mboncommande;
     this.bcbody.detail = this.mboncommandedetail.filter(x=>x.ordre !== -1);
-console.log(this.bcbody);
 
     this.apiservice.postRequest(this.bcbody, 'boncommande/new')
       .subscribe( result => {

@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FrontComponent } from './front/front.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { FrontModule } from './front/front.module';
@@ -25,6 +25,8 @@ import { BackModule } from './back/back.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StockModule } from './stock/stock.module';
 import { ApiService } from './stock/shared/api.service';
+import { DatePipe } from '@angular/common';
+import { KeyInterceptorService } from './stock/shared/keyinterceptor.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,11 @@ import { ApiService } from './stock/shared/api.service';
     LoginModule,
     BrowserAnimationsModule
   ],
-  providers: [ApiService],
+  providers: [
+    ApiService,
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
