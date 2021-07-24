@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from './../shared/api.service';
 import { MEquipement } from './../Model/equipement';
@@ -28,6 +29,7 @@ export class ListAddEditEquipementComponent implements OnInit {
     public dialog: MatDialog,
     private apiservice: ApiService,
     private snackbar: MatSnackBar,
+    private titleService:Title,
     ) {
       this._url = this.apiservice.ApiURL+'images/equipement/';
     }
@@ -45,6 +47,7 @@ export class ListAddEditEquipementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Equipement');
     this.loadEquipement();
   }
 

@@ -1,5 +1,5 @@
 export class MBoncommande{
-  nboncommande: number;
+  nboncommande: number=-1;
   dateboncommande: string;
   cfournisseur: string;
   raisonsocialefournisseur: string;

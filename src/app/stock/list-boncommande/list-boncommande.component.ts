@@ -1,12 +1,14 @@
+import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from './../shared/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MBoncommande } from './../Model/boncommande';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import {MatTableDataSource, MatTable} from '@angular/material/table';
 import {MatSort} from '@angular/material/sort';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-boncommande',
@@ -23,20 +25,24 @@ export class ListBoncommandeComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(
     public dialog: MatDialog,
     private apiservice: ApiService,
     private snackbar: MatSnackBar,
     public paglabel: MatPaginatorIntl,
-    private _adapter: DateAdapter<any>
+    private _adapter: DateAdapter<any>,
+    private titleService:Title,
+    public datepipe: DatePipe,
+
   ) {
 
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Bon Commande');
     this.dateDebut.setDate(this.dateDebut.getDate() - 7);
-    console.log(this.dateDebut );
 
     this._adapter.setLocale('fr');
     this.paginatorhandler();
@@ -48,15 +54,14 @@ export class ListBoncommandeComponent implements OnInit {
   }
 
   loadBoncommande(){
-    this.apiservice.getRequest('boncommande/getall')
+    let dd = this.datepipe.transform(this.dateDebut, 'yyyy-MM-dd', '+1');
+    let df = this.datepipe.transform(this.dateFin, 'yyyy-MM-dd', '+1');
+    this.apiservice.getRequest('boncommande/range/'+dd+'/'+df)
     .subscribe( result => {
       if(result.STATUS === "OK"){
         this.mboncommande = result.DATA;
-        this.mboncommande = this.mboncommande.concat(this.mboncommande);
-        this.mboncommande = this.mboncommande.concat(this.mboncommande);
-        this.mboncommande = this.mboncommande.concat(this.mboncommande);
-        this.mboncommande = this.mboncommande.concat(this.mboncommande);
-        this.dataSource = new MatTableDataSource<MBoncommande>(this.mboncommande);
+        this.dataSource.data = result.DATA;
+        this.table.renderRows();
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
@@ -67,6 +72,10 @@ export class ListBoncommandeComponent implements OnInit {
 
     }, err => console.log(err)
     );
+  }
+
+  doDateChange(){
+    this.loadBoncommande();
   }
 
   doAdd(){
@@ -91,4 +100,20 @@ export class ListBoncommandeComponent implements OnInit {
     };
     this.paglabel.changes.next();
   }
+
+  doAnnuler(mb:MBoncommande){
+    this.apiservice.getRequest('boncommande/annuler/'+mb.nboncommande)
+      .subscribe( result => {
+        if(result.STATUS === "OK"){
+          this.snackbar.open("Bon de Commande Annulé.","OK", {duration:2000});
+          this.dataSource.data = this.dataSource.data.filter(x=>x.nboncommande !== mb.nboncommande);
+          this.table.renderRows();
+        }else{
+          this.snackbar.open("Error","OK", {duration:2000});
+          console.log(result.MESSAGE);
+        }
+      }, err => console.log(err)
+      );
+  }
+
 }

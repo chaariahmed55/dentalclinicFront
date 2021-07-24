@@ -14,7 +14,8 @@
     <div class="col-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Date Début</mat-label>
-        <input matInput [matDatepicker]="pickerdd" [(ngModel)]="this.dateDebut">
+        <input matInput [matDatepicker]="pickerdd" [(ngModel)]="this.dateDebut" [max]="this.dateFin"
+        (dateChange)="this.doDateChange()">
         <mat-datepicker-toggle matSuffix [for]="pickerdd"></mat-datepicker-toggle>
         <mat-datepicker #pickerdd></mat-datepicker>
       </mat-form-field>
@@ -22,7 +23,8 @@
     <div class="col-3">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Date Fin</mat-label>
-        <input matInput [matDatepicker]="pickerdf" [(ngModel)]="this.dateFin">
+        <input matInput [matDatepicker]="pickerdf" [(ngModel)]="this.dateFin" [min]="this.dateDebut"
+        (dateChange)="this.doDateChange()">
         <mat-datepicker-toggle matSuffix [for]="pickerdf"></mat-datepicker-toggle>
         <mat-datepicker #pickerdf></mat-datepicker>
       </mat-form-field>
@@ -69,10 +71,14 @@
               <button matTooltip="Afficher" matTooltipPosition="above" mat-icon-button >
                 <mat-icon>preview</mat-icon>
               </button>
-              <button matTooltip="Modifier" matTooltipPosition="above" mat-icon-button color="accent">
+              <button matTooltip="Modifier" matTooltipPosition="above" mat-icon-button color="accent"
+                routerLink="{{'/bcd/'+element.nboncommande}}"
+                disabled="{{ element.bvalid }}">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button  matTooltip="Supprimer" matTooltipPosition="above" mat-icon-button color="warn">
+              <button  matTooltip="Annuler" matTooltipPosition="above" mat-icon-button color="warn"
+                disabled="{{ element.bvalid }}"
+                (click)="doAnnuler(element)">
                 <mat-icon>delete_forever</mat-icon>
               </button>
             </td>
