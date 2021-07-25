@@ -24,13 +24,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddEditEquipementComponent } from './add-edit-equipement/add-edit-equipement.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShowBoncommandeComponent } from './show-boncommande/show-boncommande.component';
 
 @NgModule({
   declarations: [
     ListAddEditEquipementComponent,
     ListBoncommandeComponent,
     AddEditBoncommandeComponent,
-    AddEditEquipementComponent
+    AddEditEquipementComponent,
+    ShowBoncommandeComponent
   ],
   imports: [
     CommonModule,

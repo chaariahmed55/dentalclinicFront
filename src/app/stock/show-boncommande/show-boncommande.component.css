@@ -1,0 +1,20 @@
+::ng-deep .intable  .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+input.disable-right-align::-webkit-outer-spin-button,
+input.disable-right-align::-webkit-inner-spin-button {
+  display: none !important;
+}
+
+input.disable-right-align {
+  appearance: textfield !important;
+}
+
+.mat-row:hover {
+  background-color: rgba(183, 10, 236, 0.116);
+}
+
+mat-label{
+  font-weight: 400 !important;
+}
+

@@ -86,7 +86,6 @@ export class AddEditBoncommandeComponent implements OnInit {
     this.apiservice.getRequest('boncommande/fetchby/'+this.nb)
     .subscribe( result => {
       if(result.STATUS === "OK"){
-        console.log(result.DATA);
 
         if(result.DATA){
           this._updateBC = true;

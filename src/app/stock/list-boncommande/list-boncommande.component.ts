@@ -1,3 +1,4 @@
+import { PDFService } from './../shared/pdf.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from './../shared/api.service';
@@ -35,7 +36,7 @@ export class ListBoncommandeComponent implements OnInit {
     private _adapter: DateAdapter<any>,
     private titleService:Title,
     public datepipe: DatePipe,
-
+    private pdfservice:PDFService,
   ) {
 
   }
@@ -114,6 +115,10 @@ export class ListBoncommandeComponent implements OnInit {
         }
       }, err => console.log(err)
       );
+  }
+
+  doPrint(){
+    this.pdfservice.generatePdf();
   }
 
 }

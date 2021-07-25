@@ -24,7 +24,7 @@ export class PDFService {
     await this.loadPdfMaker();
 
     const def = { content: '<h2><b>A sample PDF document generated using Angular and PDFMake</b></h2>' };
-    this.pdfMake.createPdf(def).open();
+    this.pdfMake.createPdf(def).print();
   }
 
 }
