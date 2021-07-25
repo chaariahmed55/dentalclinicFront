@@ -1,3 +1,4 @@
+import { PDFService } from './stock/shared/pdf.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -63,6 +64,7 @@ import { KeyInterceptorService } from './stock/shared/keyinterceptor.service';
     ApiService,
     DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: KeyInterceptorService, multi: true },
+    PDFService,
   ],
   bootstrap: [AppComponent]
 })
