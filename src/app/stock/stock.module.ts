@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddEditEquipementComponent } from './add-edit-equipement/add-edit-equipement.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShowBoncommandeComponent } from './show-boncommande/show-boncommande.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { ShowBoncommandeComponent } from './show-boncommande/show-boncommande.co
     MatChipsModule,
     MatTooltipModule,
     MatNativeDateModule,
+    ChartsModule,
+
   ]
 })
 export class StockModule { }
