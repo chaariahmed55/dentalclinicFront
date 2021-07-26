@@ -1,3 +1,4 @@
+import { ShowBoncommandeComponent } from './../show-boncommande/show-boncommande.component';
 import { PDFService } from './../shared/pdf.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -117,8 +118,19 @@ export class ListBoncommandeComponent implements OnInit {
       );
   }
 
-  doPrint(){
-    this.pdfservice.generatePdf();
+  doPrint(mb: MBoncommande){
+    this.pdfservice.doPrint(mb);
+  }
+
+  doShow(data: MBoncommande) {
+    const dialogRef = this.dialog.open(ShowBoncommandeComponent, {
+      "width": "60%",
+      data: data
+    });
+  }
+
+  doSort(){
+
   }
 
 }

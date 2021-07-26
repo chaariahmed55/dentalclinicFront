@@ -1,43 +1,33 @@
 <h2 mat-dialog-title>Bon Commande N° {{this.mboncommande.nboncommande}} </h2>
 <mat-dialog-content >
-  <div>
+  <div class="my-4 bordered-table">
     <table mat-table [dataSource]="dataSource" class="w-100">
 
       <ng-container matColumnDef="cequipement">
         <th mat-header-cell *matHeaderCellDef class="px-3"> Code </th>
         <td mat-cell *matCellDef="let element" class="px-3">
-          <mat-form-field appearance="outline" class="w-100 intable">
-            <input readonly placeholder="Code Equipement" autocomplete="off" type="text" [(ngModel)]="element.cequipement" matInput >
-          </mat-form-field>
+          {{element.cequipement}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="libequipement">
         <th mat-header-cell *matHeaderCellDef class="px-3"> Libelle </th>
         <td mat-cell *matCellDef="let element" class="px-3">
-          <mat-form-field appearance="outline" class="w-100 intable">
-            <input readonly placeholder="Libelle" autocomplete="off" type="text" [(ngModel)]="element.libequipement" matInput >
-          </mat-form-field>
+          {{element.libequipement}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="quantite">
         <th mat-header-cell *matHeaderCellDef class="px-3"> Quantité </th>
         <td mat-cell *matCellDef="let element" class="px-3">
-          <mat-form-field appearance="outline" class="w-100 intable">
-            <input min="0" placeholder="Quantité" class="disable-right-align" autocomplete="off" type="number" [(ngModel)]="element.quantite" matInput
-            readonly>
-          </mat-form-field>
+          {{element.quantite}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="prix" >
         <th mat-header-cell *matHeaderCellDef class="px-3"> Prix </th>
         <td mat-cell *matCellDef="let element" class="px-3">
-          <mat-form-field appearance="outline" class="w-100 intable">
-            <input min="0" placeholder="Prix" class="disable-right-align" autocomplete="off" type="number" [(ngModel)]="element.prix" matInput
-             readonly>
-          </mat-form-field>
+          {{element.prix}}
         </td>
       </ng-container>
 

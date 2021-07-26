@@ -17,7 +17,7 @@ export class ShowBoncommandeComponent implements OnInit {
 
   mboncommandedetail: MBonCommandeDetail[] = [];
   mboncommande: MBoncommande = new MBoncommande();
-  displayedColumns: string[] = ['cequipement', 'libequipement', 'quantite', 'prix', 'action'];
+  displayedColumns: string[] = ['cequipement', 'libequipement', 'quantite', 'prix'];
   dataSource = new MatTableDataSource<MBonCommandeDetail>(this.mboncommandedetail);
 
   constructor(
@@ -35,7 +35,7 @@ export class ShowBoncommandeComponent implements OnInit {
 
   loadBoncommande(){
     if(this.mboncommande){
-      this.apiservice.getRequest('boncommande/fetchby/')
+      this.apiservice.getRequest('boncommandedetail/fetchby/'+this.mboncommande.nboncommande)
         .subscribe( result => {
           if(result.STATUS === "OK"){
 
