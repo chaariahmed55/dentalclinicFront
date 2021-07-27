@@ -58,8 +58,7 @@ import { ChartsModule } from 'ng2-charts';
     MatChipsModule,
     MatTooltipModule,
     MatNativeDateModule,
-    ChartsModule,
-
+    ChartsModule
   ]
 })
 export class StockModule { }

@@ -13,3 +13,8 @@
 mat-label{
   font-weight: 400 !important;
 }
+
+.aj-chart{
+  width: 400px !important;
+  height: 200px !important;
+}

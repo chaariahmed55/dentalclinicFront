@@ -1,3 +1,5 @@
+import { BCLineChart } from './../Model/BCLineChart';
+import { RangeHead } from './../Model/RangeHead';
 import { ShowBoncommandeComponent } from './../show-boncommande/show-boncommande.component';
 import { PDFService } from './../shared/pdf.service';
 import { Title } from '@angular/platform-browser';
@@ -8,9 +10,15 @@ import { MBoncommande } from './../Model/boncommande';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatTableDataSource, MatTable} from '@angular/material/table';
-import {MatSort} from '@angular/material/sort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { ChartType, ChartOptions, ChartDataSets, ChartData, Chart, Easing } from 'chart.js';
+import { SingleDataSet, Label , Color, BaseChartDirective} from 'ng2-charts';
+
+const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+  "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+];
 
 @Component({
   selector: 'app-list-boncommande',
@@ -29,6 +37,50 @@ export class ListBoncommandeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatTable) table: MatTable<any>;
 
+  //#region dougChart
+  doughnutChartLabels: Label[] = ['EN ATTENTE', 'VALIDER', 'ANNULER'];
+  doughnutChartData: SingleDataSet = [0, 0, 0];
+  doughnutChartType: ChartType = 'doughnut';
+
+  chartOptions : ChartOptions= {
+    responsive:true,
+    legend: {position:'right'},
+    aspectRatio:1,
+  }
+
+  chartColors: Color[]= [{
+    backgroundColor:      ['rgba(255, 206, 86, 0.2)','rgba(105, 240, 174, 0.2)','rgba(255, 99, 132, 0.2)'],
+    borderColor:          ['rgba(255, 206, 86, 1)', 'rgba(105, 240, 174, 1)', 'rgba(255, 99, 132, 1)'],
+    hoverBackgroundColor: ['rgba(255, 206, 86, 1)', 'rgba(105, 240, 174, 1)', 'rgba(255, 99, 132, 1)'],
+    hoverBorderColor:     ['rgba(255, 206, 86, 1)', 'rgba(105, 240, 174, 1)', 'rgba(255, 99, 132, 1)']
+  }];
+  //#endregion
+
+  //#region lineChart
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  lineChartData: ChartDataSets[] = [{ data: [0], label: 'Bon de Commande' }];
+  lineChartLabels: Label[] = ['Janvier'];
+  lineChartOptions: ChartOptions = {
+    responsive: true,
+    scales: {
+      yAxes:[{
+        ticks: {beginAtZero: true}
+      }]
+    }
+  };
+  lineChartColors: Color[] = [
+    {
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      borderColor: 'rgba(75, 192, 192, 1)',
+      pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(75, 192, 192, 0.8)'
+    },];
+    lineChartLegend = true;
+    lineChartType: ChartType = 'line';
+  //#endregion
+
   constructor(
     public dialog: MatDialog,
     private apiservice: ApiService,
@@ -43,6 +95,7 @@ export class ListBoncommandeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadLineChart();
     this.titleService.setTitle('Bon Commande');
     this.dateDebut.setDate(this.dateDebut.getDate() - 7);
 
@@ -61,11 +114,25 @@ export class ListBoncommandeComponent implements OnInit {
     this.apiservice.getRequest('boncommande/range/'+dd+'/'+df)
     .subscribe( result => {
       if(result.STATUS === "OK"){
-        this.mboncommande = result.DATA;
-        this.dataSource.data = result.DATA;
-        this.table.renderRows();
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+
+        if(result.DATA){
+          let head: RangeHead[] = [];
+
+          this.mboncommande = result.DATA.body;
+          this.dataSource.data = result.DATA.body;
+          this.table.renderRows();
+          this.dataSource.paginator = this.paginator;
+          //this.dataSource.sort = this.sort;
+
+          this.doughnutChartData = [];
+
+          head = result.DATA.head;
+
+          this.doughnutChartData.push(head.find(x=>x.etat==="EN ATTENTE").count);
+          this.doughnutChartData.push(head.find(x=>x.etat==="VALIDER").count);
+          this.doughnutChartData.push(head.find(x=>x.etat==="ANNULER").count);
+        }
+
       }
       else{
         this.snackbar.open("Error","OK", {duration:2000});
@@ -104,18 +171,22 @@ export class ListBoncommandeComponent implements OnInit {
   }
 
   doAnnuler(mb:MBoncommande){
-    this.apiservice.getRequest('boncommande/annuler/'+mb.nboncommande)
-      .subscribe( result => {
-        if(result.STATUS === "OK"){
-          this.snackbar.open("Bon de Commande Annulé.","OK", {duration:2000});
-          this.dataSource.data = this.dataSource.data.filter(x=>x.nboncommande !== mb.nboncommande);
-          this.table.renderRows();
-        }else{
-          this.snackbar.open("Error","OK", {duration:2000});
-          console.log(result.MESSAGE);
-        }
-      }, err => console.log(err)
-      );
+    let snackBarRef = this.snackbar.open("Confirmation","Annuler!", {duration:4000});
+
+    snackBarRef.onAction().subscribe(() => {
+      this.apiservice.getRequest('boncommande/annuler/'+mb.nboncommande)
+        .subscribe( result => {
+          if(result.STATUS === "OK"){
+            this.snackbar.open("Bon de Commande Annulé.","OK", {duration:2000});
+            this.dataSource.data = this.dataSource.data.filter(x=>x.nboncommande !== mb.nboncommande);
+            this.table.renderRows();
+          }else{
+            this.snackbar.open("Error","OK", {duration:2000});
+            console.log(result.MESSAGE);
+          }
+        }, err => console.log(err)
+        );
+    });
   }
 
   doPrint(mb: MBoncommande){
@@ -129,8 +200,60 @@ export class ListBoncommandeComponent implements OnInit {
     });
   }
 
-  doSort(){
+  doSort(sort: Sort){
 
+    if (!sort.active || sort.direction === '') {
+      this.dataSource.data = this.dataSource.data.sort((a, b)=>  this.compare(a.nboncommande, b.nboncommande, false));
+      return;
+    }
+
+    this.dataSource.data = this.dataSource.data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'nboncommande': return this.compare(a.nboncommande, b.nboncommande, isAsc);
+        case 'dateboncommande': return this.compare(a.dateboncommande, b.dateboncommande, isAsc);
+        case 'montant': return this.compare(a.montant, b.montant, isAsc);
+        case 'etat': return this.compare(a.etat, b.etat, isAsc);
+        default: return 0;
+      }
+    });
+  }
+
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  loadLineChart(){
+    let currentmonth = new Date().getMonth();
+    this.lineChartLabels = [];
+    this.lineChartData[0].data = [];
+    monthNames.forEach((val, x)=>{
+      if(x>currentmonth) return;
+      this.lineChartLabels.push(val);
+      this.lineChartData[0].data.push(0);
+    });
+    this.apiservice.getRequest('boncommande/linechart')
+    .subscribe( result => {
+      if(result.STATUS === "OK"){
+
+         if(result.DATA){
+           let llinechart: BCLineChart[] = result.DATA;
+            // setTimeout(()=>{
+              llinechart.forEach((v, x)=>{
+                if(v.mn<=(currentmonth+1))
+                  this.lineChartData[0].data[(v.mn-1)] = v.sum
+              });
+            // },400);
+            this.chart.update();
+         }
+
+      }
+      else{
+        console.log(result.MESSAGE);
+      }
+
+    }, err => console.log(err)
+    );
   }
 
 }

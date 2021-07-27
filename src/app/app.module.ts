@@ -28,6 +28,7 @@ import { StockModule } from './stock/stock.module';
 import { ApiService } from './stock/shared/api.service';
 import { DatePipe } from '@angular/common';
 import { KeyInterceptorService } from './stock/shared/keyinterceptor.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { KeyInterceptorService } from './stock/shared/keyinterceptor.service';
     FrontModule,
     BackModule,
     LoginModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatProgressBarModule
   ],
   providers: [
     ApiService,
