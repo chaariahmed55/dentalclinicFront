@@ -12,7 +12,7 @@
   </div>
   <div class="row align-items-center">
     <div class="col-4 pb-3 offset-1">
-      <canvas width="400" height="200" baseChart
+      <canvas #daugchart=base-chart width="400" height="200" baseChart
         [labels]= "doughnutChartLabels"
         [data]="doughnutChartData"
         [colors] = "chartColors"
@@ -22,7 +22,7 @@
       </canvas>
     </div>
     <div class="col-5 pb-3 offset-1">
-      <canvas baseChart width="400" height="200"
+      <canvas #linechart=base-chart baseChart width="400" height="200"
       [datasets]="lineChartData"
       [labels]="lineChartLabels"
       [options]="lineChartOptions"

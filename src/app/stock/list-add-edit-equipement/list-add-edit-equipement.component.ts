@@ -14,6 +14,7 @@ import { AddEditEquipementComponent } from './../add-edit-equipement/add-edit-eq
 export class ListAddEditEquipementComponent implements OnInit {
 
   mequipement: MEquipement[] = [];
+  _clonemequipement: MEquipement[] = [];
   _url:string;
   searchword:string;
   wordlist = [
@@ -56,6 +57,7 @@ export class ListAddEditEquipementComponent implements OnInit {
       .subscribe( result => {
         if(result.STATUS === "OK"){
           this.mequipement = result.DATA;
+          this._clonemequipement =[...this.mequipement];
         }
         else{
           this.snackbar.open("Error","OK", {duration:2000});
@@ -120,6 +122,7 @@ export class ListAddEditEquipementComponent implements OnInit {
       .subscribe( result => {
         if(result.STATUS === "OK"){
           this.mequipement = result.DATA;
+          this._clonemequipement =[...this.mequipement];
         }
         else{
           this.snackbar.open("Error","OK", {duration:2000});
@@ -133,9 +136,9 @@ export class ListAddEditEquipementComponent implements OnInit {
   doSearch(){
     this.selectedWord = '';
     if(this.searchword.trim() === "")
-      this.loadEquipement();
+      this.mequipement = [...this._clonemequipement];
     else
-      this.searchEquipement();
+      this.mequipement = this._clonemequipement.filter(x=> x.cequipement.includes(this.searchword) || x.libequipement.includes(this.searchword) );
   }
 
   searchEquipement(){

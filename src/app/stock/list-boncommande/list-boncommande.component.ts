@@ -14,7 +14,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { ChartType, ChartOptions, ChartDataSets, ChartData, Chart, Easing } from 'chart.js';
-import { SingleDataSet, Label , Color, BaseChartDirective} from 'ng2-charts';
+import { SingleDataSet, Label , Color, BaseChartDirective } from 'ng2-charts';
 
 const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
   "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
@@ -38,6 +38,7 @@ export class ListBoncommandeComponent implements OnInit {
   @ViewChild(MatTable) table: MatTable<any>;
 
   //#region dougChart
+  @ViewChild('daugchart', { static: true }) daugchart: BaseChartDirective;
   doughnutChartLabels: Label[] = ['EN ATTENTE', 'VALIDER', 'ANNULER'];
   doughnutChartData: SingleDataSet = [0, 0, 0];
   doughnutChartType: ChartType = 'doughnut';
@@ -57,7 +58,7 @@ export class ListBoncommandeComponent implements OnInit {
   //#endregion
 
   //#region lineChart
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+  @ViewChild('linechart', { static: true }) chart: BaseChartDirective;
   lineChartData: ChartDataSets[] = [{ data: [0], label: 'Bon de Commande' }];
   lineChartLabels: Label[] = ['Janvier'];
   lineChartOptions: ChartOptions = {
@@ -127,10 +128,14 @@ export class ListBoncommandeComponent implements OnInit {
           this.doughnutChartData = [];
 
           head = result.DATA.head;
-
-          this.doughnutChartData.push(head.find(x=>x.etat==="EN ATTENTE").count);
-          this.doughnutChartData.push(head.find(x=>x.etat==="VALIDER").count);
-          this.doughnutChartData.push(head.find(x=>x.etat==="ANNULER").count);
+          let hd : RangeHead = new RangeHead();
+          hd = head.find(x=>x.etat==="EN ATTENTE");
+          this.doughnutChartData.push(( hd ? hd.count : 0 ));
+          hd = head.find(x=>x.etat==="VALIDER");
+          this.doughnutChartData.push(( hd ? hd.count : 0 ));
+          hd = head.find(x=>x.etat==="ANNULER");
+          this.doughnutChartData.push(( hd ? hd.count : 0 ));
+          this.daugchart.update();
         }
 
       }
@@ -211,7 +216,10 @@ export class ListBoncommandeComponent implements OnInit {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'nboncommande': return this.compare(a.nboncommande, b.nboncommande, isAsc);
-        case 'dateboncommande': return this.compare(a.dateboncommande, b.dateboncommande, isAsc);
+        case 'dateboncommande':
+          let ad = a.dateboncommande.split('/');
+          let bd = b.dateboncommande.split('/');
+          return this.compare(new Date(+ad[2], +ad[1]-1 , +ad[0]), new Date(+bd[2], +bd[1]-1 , +bd[0]), isAsc);
         case 'montant': return this.compare(a.montant, b.montant, isAsc);
         case 'etat': return this.compare(a.etat, b.etat, isAsc);
         default: return 0;
@@ -219,7 +227,7 @@ export class ListBoncommandeComponent implements OnInit {
     });
   }
 
-  compare(a: number | string, b: number | string, isAsc: boolean) {
+  compare(a: number | string | Date, b: number | string | Date, isAsc: boolean) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   }
 
@@ -234,19 +242,22 @@ export class ListBoncommandeComponent implements OnInit {
     });
     this.apiservice.getRequest('boncommande/linechart')
     .subscribe( result => {
+      console.log(result);
+
       if(result.STATUS === "OK"){
 
          if(result.DATA){
            let llinechart: BCLineChart[] = result.DATA;
-            // setTimeout(()=>{
               llinechart.forEach((v, x)=>{
-                if(v.mn<=(currentmonth+1))
-                  this.lineChartData[0].data[(v.mn-1)] = v.sum
+                if(v.mn<=(currentmonth+1)){
+                  this.lineChartData[0].data[(v.mn-1)] = v.sum;
+                  console.log(v);
+                }
               });
-            // },400);
+            console.log(this.chart);
+
             this.chart.update();
          }
-
       }
       else{
         console.log(result.MESSAGE);
