@@ -4,7 +4,7 @@
       <div class="fs-1">Bon de Commande</div>
     </div>
     <div class="col-6 text-end">
-      <button (click)="this.doAdd()" routerLink="/bcd"
+      <button (click)="this.doAdd()" routerLink="/boncommandeedit"
         mat-raised-button color="primary">Nouveau Bon de Commande
         <mat-icon>add</mat-icon>
       </button>
@@ -95,7 +95,7 @@
                 <mat-icon>preview</mat-icon>
               </button>
               <button matTooltip="Modifier" matTooltipPosition="above" mat-icon-button color="accent"
-                routerLink="{{'/bcd/'+element.nboncommande}}"
+                routerLink="{{'/boncommandeedit/'+element.nboncommande}}"
                 disabled="{{ element.bvalid }}">
                 <mat-icon>edit</mat-icon>
               </button>

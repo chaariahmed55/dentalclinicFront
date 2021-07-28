@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../shared/api.service';
 import { MEquipement } from './../Model/equipement';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-edit-equipement',
@@ -15,6 +16,14 @@ export class AddEditEquipementComponent implements OnInit {
   equipement: MEquipement = new MEquipement();
   _url:string;
   localImage:boolean = false;
+
+  //#region formControl
+
+  codeForm= new FormControl('', [Validators.required]);
+  LibForm= new FormControl('', [Validators.required]);
+  QteForm= new FormControl('', [Validators.required]);
+
+  //#endregion
 
   constructor(
       public dialogRef: MatDialogRef<AddEditEquipementComponent>,
@@ -46,6 +55,7 @@ export class AddEditEquipementComponent implements OnInit {
   }
 
   doSave(){
+    if(!this.formCheck()) return;
     this.apiservice.postRequest(this.equipement, 'equipement/save')
       .subscribe( result => {
         if(result.STATUS === "OK"){
@@ -57,6 +67,22 @@ export class AddEditEquipementComponent implements OnInit {
         }
       }, err => console.log(err)
       );
+  }
+
+  qteChange(){
+    console.log(this.equipement.quantite);
+
+    if(this.equipement.quantite<0)
+      this.equipement.quantite=0
+  }
+
+  formCheck(){
+    this.codeForm.markAsTouched();
+    this.LibForm.markAsTouched();
+    if(this.equipement.quantite<0)
+      this.equipement.quantite=0;
+
+    return this.equipement.cequipement && this.equipement.libequipement && this.equipement.quantite>=0;
   }
 
 }

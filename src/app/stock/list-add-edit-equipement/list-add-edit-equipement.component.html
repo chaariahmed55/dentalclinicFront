@@ -22,13 +22,16 @@
     <div class="col-4">
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Rechercher</mat-label>
-        <input autocomplete="off" [(ngModel)]="this.searchword" (change)="this.doSearch()" matInput placeholder="Rechercher">
-        <mat-icon matSuffix>search</mat-icon>
+        <input autocomplete="off" [(ngModel)]="this.searchword" (ngModelChange)="this.doSearch()" matInput placeholder="Rechercher">
+        <mat-icon *ngIf="!this.searchword" matSuffix>search</mat-icon>
+        <button *ngIf="this.searchword" matSuffix mat-icon-button aria-label="Clear" (click)="this.searchword='';this.doSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
       </mat-form-field>
     </div>
   </div>
   <mat-divider class="my-4"></mat-divider>
-  <div class="row row-cols-auto g-2">
+  <div class="row row-cols-auto g-2 justify-content-center">
     <div class="col" *ngFor="let equip of this.mequipement" >
       <mat-card class="equipement-card m-3">
         <img mat-card-image style="height: 160px;" src="{{this._url+equip.imageurl}}" onerror='src="/assets/img/equipement.png"' alt="Equipement">

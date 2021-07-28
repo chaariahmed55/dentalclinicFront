@@ -10,7 +10,7 @@ import { ApiService } from './../shared/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MBoncommande } from './../Model/boncommande';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import {map, startWith, filter} from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { Title } from '@angular/platform-browser';
@@ -36,6 +36,14 @@ export class AddEditBoncommandeComponent implements OnInit {
   bcDate: Date = new Date();
   nb:number;
   _updateBC:boolean=false;
+
+  //#region formControl
+
+  dateform = new FormControl('', [ Validators.required ]);
+  codefform = new FormControl('', [ Validators.required ]);
+  raisfform = new FormControl('', [ Validators.required ]);
+
+  //#endregion
 
   constructor(
     public dialog: MatDialog,
@@ -95,7 +103,7 @@ export class AddEditBoncommandeComponent implements OnInit {
           this.mboncommande = this.bcbody.entete;
 
           if(this.mboncommande.etat === "ANNULER"){
-            this.router.navigateByUrl('/bcd');
+            this.router.navigateByUrl('/boncommandeedit');
             return;
           }
           let dd = this.mboncommande.dateboncommande.split('/');
@@ -199,8 +207,18 @@ export class AddEditBoncommandeComponent implements OnInit {
 
   }
 
-  doSave(){
+  formCheck(){
+    this.dateform.markAsTouched();
+    this.codefform.markAsTouched();
+    this.raisfform.markAsTouched();
+    if(this.mboncommandedetail.length<=1)
+      this.snackbar.open("Detail Requise.","OK", {duration:2000});
 
+    return this.mboncommandedetail.length>1 && this.mboncommande.dateboncommande && this.mboncommande.cfournisseur && this.mboncommande.raisonsocialefournisseur;
+  }
+
+  doSave(){
+    if(!this.formCheck()) return;
     this.mboncommande.montant = this.mboncommandedetail.reduce((a, c)=> a + c.prix, 0);
 
     this.bcbody.entete = this.mboncommande;
@@ -234,6 +252,7 @@ export class AddEditBoncommandeComponent implements OnInit {
   }
 
   doValidate(){
+    if(!this.formCheck()) return;
     this.mboncommande.etat = "VALIDER";
     this.mboncommande.bvalid = true;
     this.doSave();
@@ -244,7 +263,7 @@ export class AddEditBoncommandeComponent implements OnInit {
       .subscribe( result => {
         if(result.STATUS === "OK"){
           this.snackbar.open("Bon de Commande Enregistré.","OK", {duration:2000});
-          this.router.navigateByUrl('/bcd');
+          this.router.navigateByUrl('/boncommandeedit');
         }else{
           this.snackbar.open("Error","OK", {duration:2000});
           console.log(result.MESSAGE);
@@ -258,6 +277,9 @@ export class AddEditBoncommandeComponent implements OnInit {
     this.mboncommandedetail = this.mboncommandedetail.filter(x=>x.ordre === -1);
     this.dataSource.data = this.mboncommandedetail.filter(x=>x.ordre === -1);
     this.table.renderRows();
+    this.dateform.markAsUntouched();
+    this.codefform.markAsUntouched();
+    this.raisfform.markAsUntouched();
   }
 
   prixChange(mbd: MBonCommandeDetail){

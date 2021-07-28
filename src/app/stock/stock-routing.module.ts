@@ -6,9 +6,9 @@ import { ListBoncommandeComponent } from './list-boncommande/list-boncommande.co
 import { ListAddEditEquipementComponent } from './list-add-edit-equipement/list-add-edit-equipement.component';
 
 const routes:Routes = [
-{path:"bcd", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
-{path:"bcd/:nb", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
-{path:"bc", component: ListBoncommandeComponent, data: {title:"Bon des Commandes"}},
+{path:"boncommandeedit", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
+{path:"boncommandeedit/:nb", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
+{path:"boncommande", component: ListBoncommandeComponent, data: {title:"Bon des Commandes"}},
 {path:"**", component: ListAddEditEquipementComponent}
 ];
 

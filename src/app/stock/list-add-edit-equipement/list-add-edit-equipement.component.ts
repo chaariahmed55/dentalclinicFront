@@ -138,7 +138,7 @@ export class ListAddEditEquipementComponent implements OnInit {
     if(this.searchword.trim() === "")
       this.mequipement = [...this._clonemequipement];
     else
-      this.mequipement = this._clonemequipement.filter(x=> x.cequipement.includes(this.searchword) || x.libequipement.includes(this.searchword) );
+      this.mequipement = this._clonemequipement.filter(x=> x.cequipement.toUpperCase().includes(this.searchword.toUpperCase()) || x.libequipement.toUpperCase().includes(this.searchword.toUpperCase()) );
   }
 
   searchEquipement(){

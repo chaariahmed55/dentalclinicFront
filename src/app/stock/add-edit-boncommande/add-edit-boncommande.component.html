@@ -34,7 +34,10 @@
         <input autocomplete="off" matInput [matDatepicker]="pickerdd"
         [(ngModel)]="this.bcDate"
         (dateChange)="this.dateChange()"
-        [readonly]="this.mboncommande.bvalid">
+        [readonly]="this.mboncommande.bvalid"
+        [formControl]="this.dateform">
+        <mat-hint>Requise</mat-hint>
+        <mat-error *ngIf="this.dateform.hasError('required')" >la date est <strong>Requise</strong></mat-error>
         <mat-datepicker-toggle matSuffix [for]="pickerdd"></mat-datepicker-toggle>
         <mat-datepicker #pickerdd></mat-datepicker>
       </mat-form-field>
@@ -43,14 +46,20 @@
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Code Fournisseur</mat-label>
         <input autocomplete="off" type="text" [(ngModel)]="this.mboncommande.cfournisseur" matInput placeholder="Exp. 21/00001"
-        [readonly]="this.mboncommande.bvalid">
+        [readonly]="this.mboncommande.bvalid"
+        [formControl]="this.codefform">
+        <mat-hint>Requise</mat-hint>
+        <mat-error *ngIf="this.codefform.hasError('required')" >le Code est <strong>Requise</strong></mat-error>
       </mat-form-field>
     </div>
     <div class="col-3">
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>Raison Sociale Fournisseur</mat-label>
         <input autocomplete="off" type="text" [(ngModel)]="this.mboncommande.raisonsocialefournisseur" matInput placeholder="Exp. Distributeur"
-        [readonly]="this.mboncommande.bvalid">
+        [readonly]="this.mboncommande.bvalid"
+        [formControl]="this.raisfform">
+        <mat-hint>Requise</mat-hint>
+        <mat-error *ngIf="this.codefform.hasError('required')" >La Raison Sociale est <strong>Requise</strong></mat-error>
       </mat-form-field>
     </div>
     <div class="col-3">
