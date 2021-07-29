@@ -1,0 +1,24 @@
+<div class="modal-header bg-gray-dark text-white">
+  <h4 class="modal-title" id="modal-basic-title">Modifier Commentaire</h4>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editForm" (ngSubmit)="onSubmit()" *ngIf="editForm">
+    <div class="form-group row d-flex justify-content-right align-items-center">
+      <div class="form-outline w-100">
+        <textarea
+                  class="form-control"
+                  id="textAreaExample"
+                  rows="4"
+                  [ngClass]="{'is-invalid': editForm.invalid && editForm.get('comment').touched && editForm.get('comment').errors != null}"
+                  class="m-3 form-control" placeholder="comment" formControlName="comment">
+
+        </textarea>
+        <label class="form-label" for="textAreaExample">Message</label>
+      </div>
+      <div class="modal-footer">
+        <button [disabled]="isLoading" class="btn btn-primary">Valider</button>
+        <button [disabled]="isLoading" class="btn btn-outline-warning" (click)="modal.close('Cancel')">Annuler</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,31 @@
+<form action="" [formGroup]="ArticleForm" method="POST">
+  <div class="form-group container">
+    <h3>Nouveau Article</h3>
+    <fieldset>
+      <input type="text"
+             [ngClass]="{'is-invalid': ArticleForm.invalid && ArticleForm.get('title').touched && ArticleForm.get('title').errors != null}"
+             class="m-3 form-control" placeholder="Titre" formControlName="title" [(ngModel)]=" article.title" >
+      <textarea type="text"
+             [ngClass]="{'is-invalid': ArticleForm.invalid && ArticleForm.get('description').touched && ArticleForm.get('description').errors != null}"
+                class="m-3 form-control" placeholder="Description" formControlName="description" [(ngModel)]=" article.description" ></textarea>
+      <input type="date"
+             [ngClass]="{'is-invalid': ArticleForm.invalid && ArticleForm.get('date').touched && ArticleForm.get('date').errors != null}"
+             class="m-3 form-control" placeholder="Date" formControlName="date" [(ngModel)]=" article.date" >
+      <!--File upload-->
+      <div class="custom-file mx-3 mb-2 form-group">
+        <input type="file" class="custom-file-input"
+               formControlName="imagepath" (change)="handleUpload($event)" [ngClass]="{'is-invalid': ArticleForm.invalid && ArticleForm.get('imagepath').touched && ArticleForm.get('imagepath').errors != null}">
+        <label class="custom-file-label" >Choose file...</label>
+      </div>
+    </fieldset>
+    <div  *ngIf="isSuccess" style="color: green">Successful</div>
+    <div>
+      <button class="btn btn-primary"
+             [disabled]="ArticleForm.invalid" (click)="addArticle()">Enregistrer</button>
+      <button class="btn btn-outline-warning" (click)="close()">Annuler</button>
+    </div>
+  </div>
+</form>
+
+
+

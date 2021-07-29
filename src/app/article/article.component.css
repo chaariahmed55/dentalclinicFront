@@ -1,0 +1,27 @@
+.btnadd{
+  color: deepskyblue;
+  cursor: pointer;
+}
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+.edit{
+  color: green;
+  cursor: pointer;
+}
+.delete{
+  color: red;
+  cursor: pointer;
+}
+.comment{
+  color: #0c84ff;
+  cursor: pointer;
+}
+
+.backdropBackground {
+  background-color: #0a0e14;
+}

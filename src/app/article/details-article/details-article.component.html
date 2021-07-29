@@ -1,0 +1,106 @@
+<!-- Page content-->
+
+<!---------------------------------Details------------------------------->
+<section>
+  <br><br>
+  <form  [formGroup]="CommentForm">
+  <div class="row mb-2  justify-content-center align-items-center">
+    <div class="col-md" >
+      <div class="card">
+        <div class="row g-0 ">
+          <div class="col p-4 d-flex flex-column align-items-center">
+            <img src="{{detail.imagepath}}" height="260" width="450" >
+            <strong class="d-inline-block mb-2 text-primary">{{detail.title}}</strong>
+            <div class="mb-1 text-muted">Date :{{detail.date}}</div>
+            <div class="card-body card-body-cascade text-center">
+              <!-- Text -->
+              <p class="card-text">{{detail.description}}</p>
+              <div class="small d-flex justify-content-start" >
+                <a  class="d-flex align-items-center me-3">
+                  <i class="far fa-thumbs-up me-2"></i>
+                  <p class="mb-0"> J'aime </p>
+                </a>
+                <a (click)="getComment()" class="d-flex align-items-center me-3" style="color: #0c84ff">
+                  <i class="far fa-comment-dots me-2"></i>
+                  <p class="mb-0">{{commentaire.length}} Commentaire </p>
+                </a>
+              </div>
+             <!-- <div class="card-body card-body-cascade text-left">
+                <a class="px-2 fa-lg like"><i class="fas fa-thumbs-up"></i></a>
+                <a class="px-2 fa-lg" (click)="getComment()"><i class="fas fa-comment-alt comment"></i></a>
+              </div>-->
+              <!--  <button
+                  (click)="enableDisableRule()"
+                  [ngClass]="{'green' : toggle, 'red': !toggle}">
+                  {{status}}
+                </button>!-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card"*ngFor="let c of commentaire">
+          <div class="card-body">
+            <div class="d-flex flex-start align-items-center">
+              <img
+                class="rounded-circle shadow-1-strong me-3"
+                src="../../../assets/image.png"
+                alt="avatar"
+                width="60"
+                height="60"
+              />
+              <div>
+                <h6 class="fw-bold text-primary mb-1">Nom de User</h6>
+                <p class="text-muted small mb-0">
+                  {{c.date}}
+                </p>
+              </div>
+            </div>
+            <p class="mt-3 mb-4 pb-2">
+              {{c.comment}}
+            </p>
+            <div class="small d-flex justify-content-start">
+              <a href="#!" class="d-flex align-items-center me-3">
+                <i class="far fa-thumbs-up me-2"></i>
+                <p class="mb-0"> J'aime </p>
+              </a>
+            </div>
+            <div class="small d-flex justify-content-end">
+              <a class="px-2 fa-lg" > <i class="fas fa-edit me-2 edit" (click)="UpdateComment(c)"></i></a>
+              <a class="px-2 fa-lg"><i class="fas fa-trash-alt me-2 delete" (click)="deleteComment(c.id)"></i></a>
+            </div>
+            </div>
+          </div>
+        <div class="card-footer py-3 border-0" style="background-color: cornflowerblue">
+          <div class="d-flex flex-start w-100">
+            <img
+              class="rounded-circle shadow-1-strong me-3"
+              src="../../../assets/image.png"
+              alt="avatar"
+              width="40"
+              height="40"
+            />
+            <div class="form-outline w-100">
+                <textarea
+                  class="form-control"
+                  id="textAreaExample"
+                  rows="4"
+                  [ngClass]="{'is-invalid': CommentForm.invalid && CommentForm.get('comment').touched && CommentForm.get('comment').errors != null}"
+                  class="m-3 form-control" placeholder="Commenter" formControlName="comment" [(ngModel)]="com.comment"
+                ></textarea>
+              <label class="form-label" for="textAreaExample">Message</label>
+            </div>
+          </div>
+          <div class="float-end mt-2 pt-1">
+            <button type="button" class="btn btn-primary btn-sm"(click)="addComment()">Commenter</button>
+          </div>
+        </div>
+        </div>
+  </div>
+  </form>
+</section>
+
+

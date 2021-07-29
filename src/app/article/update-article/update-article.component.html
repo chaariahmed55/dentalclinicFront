@@ -1,0 +1,31 @@
+
+<div class="modal-header bg-gray-dark text-white">
+  <h4 class="modal-title" id="modal-basic-title">Modifier Article</h4>
+</div>
+<div class="modal-body">
+  <form [formGroup]="editForm" (click)="onSubmit()" *ngIf="editForm">
+    <div class="form-group row d-flex justify-content-right align-items-center">
+      <label class="col-form-label col-sm-2">Titre</label>
+      <input type="text"
+             [ngClass]="{'is-invalid': editForm.invalid && editForm.get('title').touched && editForm.get('title').errors != null}"
+             class="m-3 form-control" placeholder="title" formControlName="title">
+      <label class="col-form-label col-sm-2">Description</label>
+      <textarea type="text"
+             [ngClass]="{'is-invalid': editForm.invalid && editForm.get('description').touched && editForm.get('description').errors != null}"
+                class="m-3 form-control" placeholder="description" formControlName="description"></textarea>
+      <label class="col-form-label col-sm-2">Date</label>
+      <input type="date"
+             [ngClass]="{'is-invalid': editForm.invalid && editForm.get('date').touched && editForm.get('date').errors != null}"
+             class="m-3 form-control" placeholder="date" formControlName="date">
+       <label class="col-form-label col-sm-2">Image</label>
+      <img class="mb-2" src="{{selectedArticle.imagepath}}"  height="200px" width="250px">
+     <input type="file"class="custom-file" (change)="handleUpload($event)"  class="m-3 form-control"
+             [ngClass]="{'is-invalid': editForm.invalid && editForm.get('imagepath').touched && editForm.get('imagepath').errors != null}">
+      <div class="modal-footer">
+      <button [disabled]="isLoading" class="btn btn-primary">Valider</button>
+      <button [disabled]="isLoading" class="btn btn-outline-warning" (click)="modal.close('Cancel')">Annuler</button>
+    </div>
+    </div>
+  </form>
+</div>
+

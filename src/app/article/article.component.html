@@ -1,0 +1,60 @@
+
+<br><br>
+<!--<form class="form-inline" >
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" [(ngModel)]="searchText">
+  <button class="btn btn-outline-info" (click)="searchByTitle()">Rechercher</button>
+</form>-->
+
+<div class="form-inline mr-sm-2">
+  <input type="text" class="form-control mr-sm-2" placeholder="Rechercher" [(ngModel)]="searchText">
+  <button
+    type="button"
+    class="btn btn-primary"
+    style="color:grey;height:30px"
+    (click)="searchFilter()">
+    <i class="fa fa-search"></i>
+  </button>
+</div>
+<br><br>
+<button (click)="openDialog ()" class="btn btn-info mt-4 mr-2" type="button"><i class="fas fa-plus btnadd"></i> Ajouter </button>
+<br><br>
+<div class="row mb-2 justify-content-center">
+  <div class="col-md-6  justify-content-center" *ngFor="let a of article | filter:searchText | paginate: {itemsPerPage: 2, currentPage: p}">
+    <div class="card">
+    <div class="row g-0 ">
+      <div class="col p-4 d-flex flex-column position-static">
+        <img src="{{a.imagepath}}" height="260" width="300" >
+        <strong class="d-inline-block mb-2 text-primary">{{a.title}}</strong>
+        <div class="mb-1 text-muted">{{a.date}}</div>
+        <div class="card-body card-body-cascade text-center">
+          <!-- Text -->
+          <p class="card-text">{{a.description}}</p>
+          <a [routerLink]="['detailsArticle', a.id]" class="blue-text d-flex flex-row-reverse p-2">
+
+            <h5 class="waves-effect waves-light"> Lire <i class="fas fa-angle-double-right ml-2"></i></h5>
+          </a>
+        <!--  <button
+            (click)="enableDisableRule()"
+            [ngClass]="{'green' : toggle, 'red': !toggle}">
+            {{status}}
+          </button>!-->
+          <hr>
+        <a class="px-2 fa-lg"  (click)="editArticle(a)"> <i class="fas fa-edit edit"></i></a>
+          <a class="px-2 fa-lg"(click)="doDelete(a)"><i class="fas fa-trash-alt delete"></i></a>
+        </div>
+    </div>
+    </div>
+  </div>
+  </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+
+
+
+
+
+
+
+
