@@ -59,7 +59,7 @@ export class ListBoncommandeComponent implements OnInit {
 
   //#region lineChart
   @ViewChild('linechart', { static: true }) chart: BaseChartDirective;
-  lineChartData: ChartDataSets[] = [{ data: [0], label: 'Bon de Commande' }];
+  lineChartData: ChartDataSets[] = [{ data: [0], label: 'Dépenses' }];
   lineChartLabels: Label[] = ['Janvier'];
   lineChartOptions: ChartOptions = {
     responsive: true,
