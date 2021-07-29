@@ -103,7 +103,7 @@ export class AddEditBoncommandeComponent implements OnInit {
           this.mboncommande = this.bcbody.entete;
 
           if(this.mboncommande.etat === "ANNULER"){
-            this.router.navigateByUrl('/boncommandeedit');
+            this.router.navigateByUrl('/back/boncommandeedit');
             return;
           }
           let dd = this.mboncommande.dateboncommande.split('/');
@@ -263,7 +263,7 @@ export class AddEditBoncommandeComponent implements OnInit {
       .subscribe( result => {
         if(result.STATUS === "OK"){
           this.snackbar.open("Bon de Commande Enregistré.","OK", {duration:2000});
-          this.router.navigateByUrl('/boncommandeedit');
+          this.router.navigateByUrl('/back/boncommandeedit');
         }else{
           this.snackbar.open("Error","OK", {duration:2000});
           console.log(result.MESSAGE);

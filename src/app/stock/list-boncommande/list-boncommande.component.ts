@@ -185,6 +185,7 @@ export class ListBoncommandeComponent implements OnInit {
             this.snackbar.open("Bon de Commande Annulé.","OK", {duration:2000});
             this.dataSource.data = this.dataSource.data.filter(x=>x.nboncommande !== mb.nboncommande);
             this.table.renderRows();
+            this.loadBoncommande();
           }else{
             this.snackbar.open("Error","OK", {duration:2000});
             console.log(result.MESSAGE);

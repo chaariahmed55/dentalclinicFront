@@ -1,7 +1,7 @@
 <div class="container-fluid bg-dark p-5">
   <div class="row pb-5">
     <div class="col-6 text-start">
-      <div class="fs-1"> {{ this._updateBC ? 'Éditer' : 'Nouveau' }}  Bon de Commande</div>
+      <div class="fs-1" style="line-height: 1.1;"> {{ this._updateBC ? 'Éditer' : 'Nouveau' }}  Bon de Commande</div>
     </div>
     <div class="col-6 text-end">
       <button class="ml-2" mat-raised-button color="warn" [disabled]="!this._updateBC || this.mboncommande.bvalid "

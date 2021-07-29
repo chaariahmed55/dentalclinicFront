@@ -1,3 +1,6 @@
+import { ListAddEditEquipementComponent } from './../stock/list-add-edit-equipement/list-add-edit-equipement.component';
+import { ListBoncommandeComponent } from './../stock/list-boncommande/list-boncommande.component';
+import { AddEditBoncommandeComponent } from './../stock/add-edit-boncommande/add-edit-boncommande.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
@@ -7,7 +10,7 @@ import { BackComponent } from './back.component';
 
 // const routes: Routes = [
 //   { path: 'back', component: BackComponent },
-  
+
 // ];
 
 const routes: Routes = [
@@ -18,12 +21,17 @@ const routes: Routes = [
       {
         path: 'patient', // child route path
         component: PatientComponent, // child route component that the router renders
-        
+
       },
       {
         path: 'dashboard', // child route path
         component: DashboardComponent, // child route component that the router renders
-      }
+      },
+      {path:"boncommandeedit", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
+      {path:"boncommandeedit/:nb", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
+      {path:"boncommande", component: ListBoncommandeComponent, data: {title:"Bon des Commandes"}},
+      {path:"equipement", component: ListAddEditEquipementComponent}
+
     ],
   },
 ];
@@ -36,7 +44,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes),
-    
+
   ],
   exports: [RouterModule]
 })

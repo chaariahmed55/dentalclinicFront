@@ -9,7 +9,7 @@ const routes:Routes = [
 {path:"boncommandeedit", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
 {path:"boncommandeedit/:nb", component: AddEditBoncommandeComponent, data: {title:"Nouveau Bon de Commande"}},
 {path:"boncommande", component: ListBoncommandeComponent, data: {title:"Bon des Commandes"}},
-{path:"**", component: ListAddEditEquipementComponent}
+{path:"equipement", component: ListAddEditEquipementComponent}
 ];
 
 @NgModule({
