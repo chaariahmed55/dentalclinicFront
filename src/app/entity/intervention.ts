@@ -1,4 +1,4 @@
-export class Article {
+export class Intervention {
     id :number;
     type:string;
     prix:number;

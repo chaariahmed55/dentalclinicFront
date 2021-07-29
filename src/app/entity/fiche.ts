@@ -1,10 +1,10 @@
+import { User } from "./user";
+
 export class Fiche {
     id :number;
     date:string;
     description:string;
-    legende:string;
     user:number;
-    
     constructor()
     {
     

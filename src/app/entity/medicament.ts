@@ -1,4 +1,4 @@
-export class Article {
+export class Medicament {
     id :number;
     quantiteparjour:number;
     quantitepardose:number;

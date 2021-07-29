@@ -9,23 +9,25 @@
                     Member Login
                 </span>
                 <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-                    <input class="input100" type="text" name="email" placeholder="Email">
+                    <input class="input100" type="text" name="email" placeholder="Email" [(ngModel)]=" login ">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                     </span>
                 </div>
                 <div class="wrap-input100 validate-input" data-validate = "Password is required">
-                    <input class="input100" name="pass" placeholder="Password">
+                    <input class="input100" name="pass" placeholder="Password" [(ngModel)]=" password ">
                     <span class="focus-input100"></span>
                     <span class="symbol-input100">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="container-login100-form-btn">
-                    <button routerLink="/back" class="login100-form-btn">
+                <div class="container-login100-form-btn" >
+// verification access
+                    <button (click)="ajoutpatient()" class="login100-form-btn">
                         Login
                     </button>
+
                 </div>
                 <div class="text-center p-t-12">
                     <span class="txt1">

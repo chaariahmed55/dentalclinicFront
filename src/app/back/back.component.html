@@ -1,4 +1,4 @@
-<div class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="hold-transition sidebar-mini">
     <div class="wrapper">
       <!-- <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__wobble" src="../../assets/styleback/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
@@ -6,9 +6,11 @@
         <app-headerback></app-headerback>
         <app-menu></app-menu>
         <div class="content-wrapper">
-
+          <section class="content">
+            <div class="container-fluid">
         <router-outlet></router-outlet>
-        
+            </div>
+          </section>
         </div>
         <div>
         <app-footerback></app-footerback>

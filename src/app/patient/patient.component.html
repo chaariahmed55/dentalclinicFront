@@ -1,4 +1,299 @@
-<p>helllooooooooooooooooooooooooooooo patient
-</p>
-<button>sqdfsdfsdfsdf</button>
-<img src="../../assets/img2.png" alt="">
+<!-------------------------------------------------------button add----------------------------------------------------------------->
+<!-- <div>
+    <ul>
+        <button type="button" class="btn btn-primary btn-pill btn-shadow" data-toggle="modal"
+            data-target="#exampleModal">
+            Add <i class="icon-plus mr-2">
+            </i></button>
+<br><br>
+            <div class="input-group">
+                <div class="form-outline">
+                  <input id="search-focus" type="search" id="form1" class="form-control" placeholder="Search" />
+                </div>
+                <button type="button" class="btn btn-primary" >
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+        </ul>
+</div> -->
+
+<div>
+    <ul class="fa-pull-right">
+        <button type="button" class="btn btn-primary btn-pill btn-shadow" data-toggle="modal"
+            data-target="#exampleModal">
+            Add <i class="icon-plus mr-2">
+            </i></button>
+    </ul>
+    <ul class="fa-pull-right">
+        <button type="button" class="btn btn-secondary btn-pill btn-shadow" (click)="loadpatient()" >
+            Fixture <i class="icon-plus mr-2">
+            </i></button>
+    </ul>
+    <ul class="fa-pull-left">
+        <div class="input-group">
+            <div class="form-outline">
+              <input id="search-focus" type="search" id="form1" class="form-control" placeholder="Search" [(ngModel)]=" champrecherche "/>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="recherchepatient(champrecherche)">
+              <i class="fas fa-search" ></i>
+            </button>
+          </div>
+    </ul>
+</div>
+<br><br><br>
+<br>
+<!------------------------------------------------------- Modal ----------------------------------------------------------->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form #Registrationform="ngForm" (ngSubmit)="ajoutpatient()">
+                        
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Nom</label>
+                                <div class="col-md-9">
+                                    <input id="name" type="text" class="form-control" name="name"
+                                        placeholder="name" [(ngModel)]=" patient.nom " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Prenom</label>
+                                <div class="col-md-9">
+                                    <input id="prenom" type="text" class="form-control" name="prename"
+                                        placeholder="username" [(ngModel)]=" patient.prenom " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Username</label>
+                                <div class="col-md-9">
+                                    <input id="username" type="text" class="form-control" name="username"
+                                        placeholder="username" [(ngModel)]=" patient.username " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Mot de passe</label>
+                                <div class="col-md-9">
+                                    <input id="mdp" type="password" class="form-control" name="mdp"
+                                        placeholder="password" [(ngModel)]=" patient.password " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Telephone</label>
+                                <div class="col-md-9">
+                                    <input id="telephone" type="number" class="form-control" name="telephone"
+                                        placeholder="telephone" [(ngModel)]=" patient.telephone " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Email</label>
+                                <div class="col-md-9">
+                                    <input id="email" type="text" class="form-control" name="email"
+                                        placeholder="email" [(ngModel)]=" patient.email " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Birthdate</label>
+                                <div class="col-md-9">
+                                    <input id="birthdate" type="text" class="form-control" name="birthdate"
+                                        placeholder="birthdate" [(ngModel)]=" patient.birthdate " />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <label class="col-md-3">Adresse</label>
+                                <div class="col-md-9">
+                                    <input id="adresse" type="text" class="form-control" name="adresse"
+                                        placeholder="adresse" [(ngModel)]=" patient.adresse " />
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" #closebutton class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!------------------------------------------------------------tableau des users------------------------------------------------------------->
+<!-- <div class="card">
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name/Prename</th>
+                    <th>telephone</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of allpatient">
+                    <td><a [routerLink]="['fiche',p.id]" >{{ p.nom +" "+ p.prenom }}</a></td>
+                    <td>{{ p.telephone }}</td>
+                    <td> <a style="background-color: grey;" class="btn btn-danger btn-circle m-1"  data-toggle="modal"
+                        data-target="#aaexampleModal" data-toggle="modal" data-target="#aaexampleModal" (click)='showcurrentpatient(p)'><img src="https://img.icons8.com/ios/50/000000/show-password.png"/></a></td>
+                    <td> <a style="background-color: red;" class="btn btn-danger btn-circle m-1" (click)='delete(p)'><img src="https://img.icons8.com/small/32/000000/filled-trash.png"/></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div> -->
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<section class="cards-wrapper">
+    <div class="card-grid-space" *ngFor="let p of allpatient">
+      <!-- <div class="num">01</div> -->
+      <a class="card" style="--bg-img: url(https://dm0qx8t0i9gc9.cloudfront.net/watermarks/image/rDtN98Qoishumwih/illustration-of-a-dental-doctor-treatment-to-patient_SB_PM.jpg)">
+        <div>
+          <h1><a [routerLink]="['fiche',p.id]" >{{ p.nom +" "+ p.prenom }}</a></h1>
+          <p>Telephone {{ p.telephone }}</p>
+          <div class="tags">
+            <button class="tag" style="background-color:red;" (click)='delete(p)'><img src="https://img.icons8.com/small/32/000000/filled-trash.png"/></button>
+            <button class="tag" style="background-color: green;" (click)='showcurrentpatient(p)' data-toggle="modal"
+            data-target="#exampleModal" ><img src="https://img.icons8.com/ios/50/000000/show-password.png"/></button>
+          </div>
+        </div>
+      </a>
+    </div>
+    
+    </section>
+
+<!-----------------------------------------------------------------------pagination--------------------------------------------------------------->
+
+<nav style="text-align: center;">
+    <ul class="pagination">
+        <button class="btn btn-success" style="width:100px;" [disabled]="pageactuelle==0"  (click)="previous()" >Previous</button>
+        <button class="btn btn-light" style="width:100px;" disabled >{{ pageactuelle+1 }}</button>
+        <button class="btn btn-success" style="width:100px;"  [disabled]="pageactuelle==maxpage" (click)="next()">  Next  </button>
+    </ul>
+  </nav>
+
+<br><br>
+<!--------------------------------------------------------------------modal--------------------------------------------------------------------->
+<div class="modal fade" id="aaexampleModal" tabindex="-1" role="dialog" aria-labelledby="aaexampleModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Edit Doctor Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form #Registrationform="ngForm" *ngIf="updatevalue">
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Nom</label>
+                            <div class="col-md-9">
+                                <input id="name1" type="text" class="form-control" name="name1"
+                                    placeholder="name" [(ngModel)]=" pa.nom " value="{{ pa.nom }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Prenom</label>
+                            <div class="col-md-9">
+                                <input id="prenom1" type="text" class="form-control" name="prename1"
+                                    placeholder="username" [(ngModel)]=" pa.prenom " value="{{ pa.prenom }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Username</label>
+                            <div class="col-md-9">
+                                <input id="username1" type="text" class="form-control" name="username1"
+                                    placeholder="username" [(ngModel)]=" pa.username " value="{{ pa.username }}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Mot de passe</label>
+                            <div class="col-md-9">
+                                <input id="mdp1" type="password" class="form-control" name="mdp1"
+                                    placeholder="password" [(ngModel)]=" pa.password " value="{{ pa.password }}" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Telephone</label>
+                            <div class="col-md-9">
+                                <input id="telephone1" type="number" class="form-control" name="telephone1"
+                                    placeholder="telephone" [(ngModel)]=" pa.telephone " value="{{ pa.telephone }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Email</label>
+                            <div class="col-md-9">
+                                <input id="email1" type="text" class="form-control" name="email1"
+                                    placeholder="email" [(ngModel)]=" pa.email " value="{{ pa.email }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Birthdate</label>
+                            <div class="col-md-9">
+                                <input id="birthdate1" type="text" class="form-control" name="birthdate1"
+                                    placeholder="birthdate" [(ngModel)]=" pa.birthdate " value="{{ pa.birthdate }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <label class="col-md-3">Adresse</label>
+                            <div class="col-md-9">
+                                <input id="adresse1" type="text" class="form-control" name="adresse1"
+                                    placeholder="adresse" [(ngModel)]=" pa.adresse " value="{{ pa.adresse }}"  />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary" (click)="updatechanges()">Save changes</button>  -->
+                    <button type="submit" class="btn btn-primary" (click)="update()">Save changes</button>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" #closebutton class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-------------------------------------------------------------cards------------------------------------------------------------->
+
+

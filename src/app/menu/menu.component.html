@@ -29,13 +29,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a routerLink="#" class="nav-link">
+                <a routerLink="dashboard" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v1</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a routerLink="patient" class="nav-link active">
+                <a routerLink="#" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v2</p>
                 </a>
@@ -48,36 +48,50 @@
               </li>
             </ul>
           </li>
-  
-          <!-- patient -->
+  <!---------------------------------------------------------------hellooooo-------------------------------->
           <li class="nav-item menu-open">
-            <a href="/back/patient" class="nav-link active">
+            <a class="nav-link active">
               <i class="nav-header nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Docteur
-                <i class="right fas "></i>
+                Utilisateur
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <div>
+              <li class="nav-item">
+                <a routerLink="docteur" class="nav-link" >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Docteur</p>
+                </a>
+              </li>
+            </div>
+            </ul>
+            <ul class="nav nav-treeview">
+              <div>
+              <li class="nav-item">
+                <a routerLink="secretaire" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Secretaire</p>
+                </a>
+              </li>
+            </div>
+            </ul>
+            <ul class="nav nav-treeview">
+              <div>
+              <li class="nav-item">
+                <a routerLink="patient" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Patient</p>
+                </a>
+              </li>
+            </div>
+            </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-header nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Secretaire
-                <i class="right fas "></i>
-              </p>
-            </a>
-          </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-header nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Patient
-                <i class="right fas "></i>
-              </p>
-            </a>
-          </li>
-  
+
+
+
+          
         </ul>
       </nav>
     </div>

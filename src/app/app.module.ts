@@ -22,6 +22,11 @@ import { Section1Component } from './section1/section1.component';
 import { LoginComponent } from './login/login.component';
 import { LoginModule } from './login/login.module';
 import { BackModule } from './back/back.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FicheComponent } from './fiche/fiche.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
+
 
 @NgModule({
   declarations: [
@@ -42,6 +47,8 @@ import { BackModule } from './back/back.module';
     FooterbackComponent,
     DashboardComponent,
     Section1Component,
+    FicheComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,10 @@ import { BackModule } from './back/back.module';
     FormsModule,
     FrontModule,
     BackModule,
-    LoginModule
+    LoginModule,
+    BrowserAnimationsModule,
+    Ng2SearchPipeModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
